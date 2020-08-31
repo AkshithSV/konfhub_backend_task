@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  nav
+    div(class="nav nav-tabs" id="nav-tab" role="tablist")
+      a(class="nav-item nav-link active" id="free-tab-link" data-toggle="tab" href="#free-tab" role="tab" aria-controls="nav-home" aria-selected="true") Free
+      a(class="nav-item nav-link" id="paid-tab-link" data-toggle="tab" href="#paid-tab" role="tab" aria-controls="nav-profile" aria-selected="false") Paid
+  div(class="tab-content" id="nav-tabContent")
+    div(class="tab-pane fade active show" id="free-tab" role="tabpanel" aria-labelledby="nav-home-tab")
+      div(class='table-responsive')
+        table(class='table table-bordered table-striped')
+          thead(class='thead-dark')
+            tr
+              th Conference Name
+              th Image
+              th Date
+              th Venue
+              th Url
+              th Has Duplicate
+          tbody
+            each free in list.free
+              tr
+                td=free.confName
+                td
+                  img(src=((free.imageURL.indexOf('"') >= 0)?free.imageURL.slice(1, -1):free.imageURL)  alt="No image" width="50px")
+                td=free.confStartDate
+                td=free.venue
+                td
+                  a(href=free.confUrl target="_blank") #{free.confUrl}
+                td=free.hasExactDuplicate
+    div(class="tab-pane fade " id="paid-tab" role="tabpanel" aria-labelledby="nav-profile-tab")
+      div(class='table-responsive')
+        table(class='table table-bordered table-striped')
+          thead(class='thead-dark')
+            tr
+              th Conference name
+              th Image
+              th Date
+              th Venue
+              th Url
+              th Has Duplicate
+          tbody
+            each paid in list.paid
+              tr
+                td=paid.confName
+                td
+                  img(src=((paid.imageURL.indexOf('"') >= 0)?paid.imageURL.slice(1, -1):paid.imageURL) alt="No image" width="50px")
+                td=paid.confStartDate
+                td=paid.venue
+                td
+                  a(href=paid.confUrl target="_blank") #{paid.confUrl}
+                td=paid.hasExactDuplicate
